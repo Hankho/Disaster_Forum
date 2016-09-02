@@ -1,0 +1,9 @@
+<%=form_for @disaster, :url => disaster_path, :method=>:patch do |f|%>
+<%=f.label :category, "災情分類"%>
+<%=f.text_field :category%>
+<%=f.label :title, "災情名稱"%>
+<%=f.text_field :title%>
+<%=f.label :content, "災情內容"%>
+<%=f.text_area :content%>
+<%=f.submit"編輯完成"%>
+<%end%>

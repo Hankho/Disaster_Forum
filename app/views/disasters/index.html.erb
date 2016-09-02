@@ -1,0 +1,16 @@
+<h1>災害情報網</h1>
+<table class="table table-striped">
+<% @disasters.each do |disaster|%>
+	<tr>
+		<td>
+		<%= disaster.title%>
+		<%= link_to"災害內容", disaster_path(disaster)%>
+		<%= link_to"編輯災情內容", edit_disaster_path(disaster)%>
+		<%= link_to"刪除", disaster_path(disaster), :method=>:delete%>	
+		</td>
+		
+	</tr>
+<%end%>
+</table>
+
+<%= link_to "新增災情", new_disaster_path%>
