@@ -16,6 +16,7 @@ class DisasterMessagesController < ApplicationController
 	def destroy
 		@message = Message.find(params[:id])
 		@message.destroy
+		flash[:notice]="刪除成功！"
 		redirect_to disaster_path(@disaster)
 	end
 

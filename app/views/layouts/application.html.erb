@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Demo</title>
+    <title>Disaster</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,19 +9,29 @@
   </head>
 
   <body>
-  <p style="color: green"><%= flash[:notice] %></p>
-  <p style="color: red"><%= flash[:alert] %></p>
+    <p style="color: green"><%= flash[:notice] %></p>
+    <p style="color: red"><%= flash[:alert] %></p>
+      
     
-
-
   <% if current_user %>
-    Hi, <%= current_user.email%>
-    <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
-    <%= link_to('修改密碼', edit_registration_path(:user)) %>
-  <% else %>
-    <%= link_to('註冊', new_registration_path(:user)) %> |
-    <%= link_to('登入', new_session_path(:user)) %>
-  <% end %>
+  <%= link_to('登出', destroy_user_session_path, :method => :delete) %>
+  ....
+<% else %>
+    ....
+    <%= link_to "登入 Facebook", user_facebook_omniauth_authorize_path %>
+<% end %>
+
+
+
+
+    <% if current_user %>
+      Hi, <%= current_user.email%>
+      <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
+      <%= link_to('修改密碼', edit_registration_path(:user)) %>
+    <% else %>
+      <%= link_to('註冊', new_registration_path(:user)) %> |
+      <%= link_to('登入', new_session_path(:user)) %>
+    <% end %>
 
 
     <%= yield %>
