@@ -8,7 +8,7 @@
 
 </table>
 
-<h3>留言區</h3>
+<h3>留言區</h3> 
 <table class="table table-striped">
 <% @messages.each do |msg|%>
 	<tr>
@@ -19,14 +19,16 @@
 	</tr>
 <%end%>
 </table>
-
-<%= form_for @disaster_message , :url => disaster_messages_path(@disaster) do |f|%>
-<%= f.label :message %>
-<div class="form-group">
+<h3> <%= @disaster.title%> 累計留言數:共<%= @disaster.messages.count %>則</h3>
+	<%= form_for @disaster_message , :url => disaster_messages_path(@disaster) do |f|%>
+	<%= f.label :message %>
+	<div class="form-group">
 	<%= f.text_field :message, :class=>"form-control" %>
-</div>
-<%= f.submit%>
-<% end %>
+	</div>
+	<%= f.submit%>
+	<% end %>
+
+
 
 <br>
 <%= link_to "返回災害情報網", disasters_path, :class => "btn btn-danger"%>
