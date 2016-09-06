@@ -1,32 +1,41 @@
 class DisastersController < ApplicationController
+	before_action :authenticate_user!, :except => [:index]
 	before_action :set_disaster, :only =>[:show,:edit,:update,:destroy]
 	def index
-		@disasters = Disaster.all
+		@disasters = Disaster.page(params[:page]).per(5)
 	end
 	def new
 		@disaster = Disaster.new
 	end
 	def show
-		
+		@messages = @disaster.messages
+	    @disaster_message = Message.new  #new出來的物件用來給form_for塞進來的資料
+
 	end
 	def create
 		@disaster = Disaster.new(params_disaster)
-		@disaster.save
+		@disaster.user = current_user
+		if @disaster.save
+		flash[:notice]="新增成功！！"
 		redirect_to disasters_path
+		else
+		flash[:alert]="新增失敗！！"
+		render :action => :new
+		end
 	end
 	def edit
 		
 	end
 	def update
-		
 		@disaster.update(params_disaster)
 		redirect_to disasters_path
 	end
     def destroy
-    	
     	@disaster.destroy
-    	redirect_to disasters_path
+    	redirect_to disasters_path(:page=>params[:page])
     end
+    
+    private
     def params_disaster
     	params.require(:disaster).permit(:category,:title,:content)
     end

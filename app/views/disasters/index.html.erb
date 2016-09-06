@@ -1,16 +1,23 @@
-<h1>災害情報網</h1>
+<h1>災害資訊網</h1>
 <table class="table table-striped">
 <% @disasters.each do |disaster|%>
 	<tr>
 		<td>
+			<%= disaster.user.try(:short_name)%>
+		</td>
+		<td>
 		<%= disaster.title%>
-		<%= link_to"災害內容", disaster_path(disaster)%>
-		<%= link_to"編輯災情內容", edit_disaster_path(disaster)%>
-		<%= link_to"刪除", disaster_path(disaster), :method=>:delete%>	
+		<br>
+		<%= link_to"災害內容", disaster_path(disaster), :class => "btn btn-primary"%>
+		<%= link_to"編輯災情內容", edit_disaster_path(disaster),:class => "btn btn-primary"%>
+		<%= link_to"刪除", disaster_path(disaster), :method=>:delete,:class => "btn btn-danger"%>
+
 		</td>
 		
 	</tr>
 <%end%>
 </table>
+<%= paginate @disasters %>
+<br>
 
-<%= link_to "新增災情", new_disaster_path%>
+<%= link_to "新增災害", new_disaster_path,:class => "btn btn-primary"%>

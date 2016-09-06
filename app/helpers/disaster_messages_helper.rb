@@ -1,0 +1,2 @@
+module DisasterMessagesHelper
+end

@@ -1,4 +1,33 @@
-<h1> 災害：<%=@disaster.title%></h1>
-<h3><%= simple_format(@disaster.content)%></h3>
+<h1> 災害名稱：<%=@disaster.title%></h1>
+<table class="table table-striped">
+<td>
+	<h3>分類：<%= simple_format(@disaster.category)%></h3>
+	<h3>內容：<%= simple_format(@disaster.content)%></h3>
+	
+</td>
 
-<%= link_to" 返回災害情報網", disasters_path%>
+</table>
+
+<h3>留言區</h3>
+<table class="table table-striped">
+<% @messages.each do |msg|%>
+	<tr>
+		<td>
+			<%= msg.message%>
+			<%= link_to"刪除留言", disaster_message_path(@disaster,msg), :method => :delete%>
+			
+		</td>
+	</tr>
+<%end%>
+</table>
+
+<%= form_for @disaster_message , :url => disaster_messages_path(@disaster) do |f|%>
+<%= f.label :message %>
+<div class="form-group">
+	<%= f.text_field :message, :class=>"form-control" %>
+</div>
+<%= f.submit%>
+<% end %>
+
+<br>
+<%= link_to "返回災害情報網", disasters_path, :class => "btn btn-danger"%>
