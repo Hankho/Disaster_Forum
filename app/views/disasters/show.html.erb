@@ -1,23 +1,23 @@
 <h1> 災害名稱：<%=@disaster.title%></h1>
 <table class="table table-striped">
-<td>
-	<h3>分類：<%= simple_format(@disaster.category)%></h3>
-	<h3>內容：<%= simple_format(@disaster.content)%></h3>
-	
-</td>
-
+	<td>
+		<h3>分類：<% @disaster.groups.each do |group|%></h3>
+                 <%= group.name%>
+                 <%end%>
+		<h3>內容：<%= simple_format(@disaster.content)%></h3>
+	</td>
 </table>
 
 <h3>留言區</h3> 
 <table class="table table-striped">
-<% @messages.each do |msg|%>
-	<tr>
-		<td>
-			<%= msg.message%>
-			<%= link_to"刪除留言", disaster_message_path(@disaster,msg), :method => :delete%>
-		</td>
-	</tr>
-<%end%>
+	<% @messages.each do |msg|%>
+		<tr>
+			<td>
+				<%= msg.message%>
+				<%= link_to"刪除留言", disaster_message_path(@disaster,msg), :method => :delete%>
+			</td>
+		</tr>
+	<%end%>
 </table>
 <h3> <%= @disaster.title%> 累計留言數:共<%= @disaster.messages.count %>則</h3>
 	<%= form_for @disaster_message , :url => disaster_messages_path(@disaster) do |f|%>
@@ -27,8 +27,5 @@
 	</div>
 	<%= f.submit%>
 	<% end %>
-
-
-
 <br>
 <%= link_to "返回災害情報網", disasters_path, :class => "btn btn-danger"%>

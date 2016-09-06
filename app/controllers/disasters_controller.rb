@@ -1,5 +1,5 @@
 class DisastersController < ApplicationController
-	before_action :authenticate_user!, :except => [:index]
+	before_action :authenticate_user!, :except => [:index,:edit]
 	before_action :set_disaster, :only =>[:show,:edit,:update,:destroy]
 	def index
 		@disasters = Disaster.page(params[:page]).per(5)
@@ -37,7 +37,7 @@ class DisastersController < ApplicationController
     
     private
     def params_disaster
-    	params.require(:disaster).permit(:category,:title,:content)
+    	params.require(:disaster).permit(:category,:title,:content,:group_ids=>[])
     end
     def set_disaster
     	@disaster = Disaster.find(params[:id])

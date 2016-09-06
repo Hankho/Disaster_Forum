@@ -11,6 +11,7 @@
 		<%= link_to"災害內容", disaster_path(disaster), :class => "btn btn-primary"%>
 		<%= link_to"編輯災情內容", edit_disaster_path(disaster),:class => "btn btn-primary"%>
 		<%= link_to"刪除", disaster_path(disaster), :method=>:delete,:class => "btn btn-danger"%>
+		<%=%>
 		<h5>留言數:<%= disaster.messages.count%></h5>
 		</td>
 	</tr>

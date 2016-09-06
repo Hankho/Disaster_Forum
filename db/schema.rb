@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906033757) do
+ActiveRecord::Schema.define(version: 20160906074721) do
+
+  create_table "disaster_groupships", force: :cascade do |t|
+    t.integer  "disaster_id"
+    t.integer  "group_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["disaster_id"], name: "index_disaster_groupships_on_disaster_id"
+    t.index ["group_id"], name: "index_disaster_groupships_on_group_id"
+  end
 
   create_table "disasters", force: :cascade do |t|
     t.string   "category"
@@ -20,6 +29,12 @@ ActiveRecord::Schema.define(version: 20160906033757) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.index ["user_id"], name: "index_disasters_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "messages", force: :cascade do |t|
