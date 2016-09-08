@@ -3,6 +3,7 @@ class DisastersController < ApplicationController
 	before_action :set_disaster, :only =>[:show,:edit,:update,:destroy]
 	def index
 		@disasters = Disaster.page(params[:page]).per(5)
+		prepare_variable_for_index_template
 	end
 	def new
 		@disaster = Disaster.new
@@ -47,5 +48,11 @@ class DisastersController < ApplicationController
     end
     def set_disaster
     	@disaster = Disaster.find(params[:id])
+    end
+    def prepare_variable_for_index_template
+    	if params[:order]
+    		sort_by = (params[:order]=="title") ? "title" : "id"
+    		@disasters = @disasters.order(sort_by)
+    	end
     end
 end

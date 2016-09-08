@@ -1,7 +1,8 @@
 <h1>災害資訊網</h1>
 
 <h4><%= link_to "About", about_disasters_path%></h4>
-
+<%= link_to"Sort by Name", disasters_path( :order => "title")%>
+<%= link_to"Sort by Default", disasters_path%>
 <table class="table table-striped">
 <% @disasters.each do |disaster|%>
 	<tr>
@@ -15,7 +16,12 @@
 			<%= link_to"編輯災情內容", edit_disaster_path(disaster),:class => "btn btn-primary"%>
 			<%= link_to"刪除", disaster_path(disaster), :method=>:delete,:class => "btn btn-danger"%>
 			<%= disaster.created_at%>
-			<h5>留言數:<%= disaster.messages.count%></h5>
+			<td>
+				<% disaster.groups.each do |group|%>
+	            <%= group.name%>
+				<h5>留言數:<%= disaster.messages.count%></h5>
+	            <%end%>
+			</td>
 		</td>
 	</tr>
 <%end%>
