@@ -1,17 +1,5 @@
 <%=form_for @disaster, :url => disaster_path, :method=>:patch do |f|%>
-<div class="form-group">
-	<h4><%=f.label :category, "災情分類"%></h4>
-	<%= f.collection_check_boxes(:group_ids, Group.all, :id, :name) %>
-</div>
-<div class="form-group">
-	<h4><%=f.label :title, "災情名稱"%></h4>
-	<%=f.text_field :title,:class=>"form-control"%>
-</div>
-<div class="form-group">
-	<h4><%=f.label :content, "災情內容"%></h4>
-	<%=f.text_area :content,:class=>"form-control"%>
-</div>
-
+<%= render :partial => 'form', :locals => { :f => f } %>
 <%=f.submit"編輯完成",:class => "btn btn-primary"%>
 <%= link_to"返回災害情報網", disasters_path, :class => "btn btn-danger"%>
 <%end%>

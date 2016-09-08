@@ -4,7 +4,7 @@
 		<h3>分類：<% @disaster.groups.each do |group|%></h3>
                  <%= group.name%>
                  <%end%>
-		<h3>內容：<%= simple_format(@disaster.content)%></h3>
+		<h4>內容：<%= simple_format(@disaster.content)%></h4>
 	</td>
 </table>
 
@@ -15,6 +15,7 @@
 			<td>
 				<%= msg.message%>
 				<%= link_to"刪除留言", disaster_message_path(@disaster,msg), :method => :delete%>
+				
 			</td>
 		</tr>
 	<%end%>
