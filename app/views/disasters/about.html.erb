@@ -1,0 +1,11 @@
+<br>
+<table class="table table-striped">
+	<h1>關於本站</h1>
+<td>
+	<h3>本站使用者人數：<%= @users.count%>人</h3>
+	<h3>本站文章數：<%= @disasters.count%>篇</h3>
+	<h3>本站總留言數：<%= @messages.count%>則</h3>
+</td>
+</table>
+<br>
+<%= link_to"返回災害情報網", disasters_path, :class=> "btn btn-danger"%>

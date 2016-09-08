@@ -1,5 +1,7 @@
 <h1>災害資訊網</h1>
 
+<h4><%= link_to "About", about_disasters_path%></h4>
+
 <table class="table table-striped">
 <% @disasters.each do |disaster|%>
 	<tr>
@@ -7,13 +9,13 @@
 			<h4>創建者：<%= disaster.user.try(:short_name)%></h4>
 		</td>
 		<td>
-		<%= disaster.title%>
-		<br>
-		<%= link_to"災害內容", disaster_path(disaster), :class => "btn btn-primary"%>
-		<%= link_to"編輯災情內容", edit_disaster_path(disaster),:class => "btn btn-primary"%>
-		<%= link_to"刪除", disaster_path(disaster), :method=>:delete,:class => "btn btn-danger"%>
-		<%= disaster.created_at%>
-		<h5>留言數:<%= disaster.messages.count%></h5>
+			<%= disaster.title%>
+			<br>
+			<%= link_to"災害內容", disaster_path(disaster), :class => "btn btn-primary"%>
+			<%= link_to"編輯災情內容", edit_disaster_path(disaster),:class => "btn btn-primary"%>
+			<%= link_to"刪除", disaster_path(disaster), :method=>:delete,:class => "btn btn-danger"%>
+			<%= disaster.created_at%>
+			<h5>留言數:<%= disaster.messages.count%></h5>
 		</td>
 	</tr>
 <%end%>
