@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906074721) do
+ActiveRecord::Schema.define(version: 20160912064634) do
 
   create_table "disaster_groupships", force: :cascade do |t|
     t.integer  "disaster_id"
@@ -25,9 +25,11 @@ ActiveRecord::Schema.define(version: 20160906074721) do
     t.string   "category"
     t.string   "title"
     t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "user_id"
+    t.integer  "messages_count", default: 0, null: false
+    t.index ["messages_count"], name: "index_disasters_on_messages_count"
     t.index ["user_id"], name: "index_disasters_on_user_id"
   end
 
