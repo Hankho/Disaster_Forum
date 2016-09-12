@@ -2,8 +2,10 @@ class DisastersController < ApplicationController
 	before_action :authenticate_user!, :except => [:index,:edit]
 	before_action :set_disaster, :only =>[:show,:edit,:update,:destroy]
 	def index
+
 		@disasters = Disaster.page(params[:page]).per(5)
 		prepare_variable_for_index_template
+		
 	end
 	def new
 		@disaster = Disaster.new
@@ -42,7 +44,7 @@ class DisastersController < ApplicationController
     	redirect_to disasters_path(:page=>params[:page])
     end
     
-    private
+    private #private 底下的方法只有自己的class可以用
     def params_disaster
     	params.require(:disaster).permit(:category,:title,:content,:group_ids=>[])
     end
@@ -50,9 +52,12 @@ class DisastersController < ApplicationController
     	@disaster = Disaster.find(params[:id])
     end
     def prepare_variable_for_index_template
-    	if params[:order]
-    		sort_by = (params[:order]=="title") ? "title" : "id"
-    		@disasters = @disasters.order(sort_by)
+		if  params[:order] == "title"
+    		@disasters = @disasters.order("title")
+    	elsif  params[:order]=="messages_count"
+    		@disasters = @disasters.order("messages_count DESC")
+    	else
+    		@disasters
     	end
     end
 end
