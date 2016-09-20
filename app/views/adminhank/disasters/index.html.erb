@@ -1,0 +1,11 @@
+<h2>本站使用者清單:</h2>
+<% @users.each do |user|%>
+
+<ul>
+	<li><%= user.email%></li>
+</ul>
+<%end%>
+
+
+
+<%= link_to"返回論壇",disasters_path, :class=> "btn btn-danger"%>
