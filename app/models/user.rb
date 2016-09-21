@@ -1,11 +1,19 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  ADMIM_EMAIL_LIST = ["hankhe@gmail.com"]  #用陣列包起來是因為可能不只一筆，可以一直加
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
-    has_many :disasters
+    has_many :disasters, dependent: :destroy
+  
+    def admin?            #辨識使用者是否有admin權限
+      self.email.in? ADMIM_EMAIL_LIST
+    end
+
     def short_name
     	self.email.split("@").first
     end
