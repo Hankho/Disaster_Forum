@@ -1,11 +1,10 @@
 class DisastersController < ApplicationController
-	before_action :authenticate_user!, :except => [:index,:edit]
+	before_action :authenticate_user!, :except => [:edit, :show]
 	before_action :set_disaster, :only =>[:show,:edit,:update,:destroy]
 	def index
-
+		@user = current_user
 		@disasters = Disaster.page(params[:page]).per(5)
 		prepare_variable_for_index_template
-		
 	end
 	def new
 		@disaster = Disaster.new
@@ -23,7 +22,7 @@ class DisastersController < ApplicationController
 	end
 	def create
 		@disaster = Disaster.new(params_disaster)
-		@disaster.user = current_user
+		@disaster.user = current_user 
 		if @disaster.save
 		flash[:notice]="新增成功！！"
 		redirect_to disasters_path
@@ -33,18 +32,28 @@ class DisastersController < ApplicationController
 		end
 	end
 	def edit
+
 		
 	end
 	def update
+		
 		@disaster.update(params_disaster)
 		redirect_to disasters_path
+
 	end
     def destroy
-    	@disaster.destroy
-    	redirect_to disasters_path(:page=>params[:page])
+    	if @disaster.user == current_user
+    	   @disaster.destroy
+    	   flash[:notice] = "刪除成功！"
+    	   redirect_to disasters_path(:page=>params[:page])
+    	else
+    	   flash[:alert] = "你不是創建者無權刪除！"
+    	   redirect_to disasters_path(:page=>params[:page])
+    	end
     end
     
-    private #private 底下的方法只有自己的class可以用
+    
+    private #private 底下的方法只有自己的class(DisastersController)可以用
     def params_disaster
     	params.require(:disaster).permit(:category,:title,:content,:group_ids=>[])
     end
@@ -54,10 +63,13 @@ class DisastersController < ApplicationController
     def prepare_variable_for_index_template
 		if  params[:order] == "title"
     		@disasters = @disasters.order("title")
-    	elsif  params[:order]=="messages_count"
+    	elsif  params[:order] == "messages_count"
     		@disasters = @disasters.order("messages_count DESC")
     	else
     		@disasters
     	end
     end
+
+
+
 end

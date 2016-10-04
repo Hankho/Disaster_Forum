@@ -1,11 +1,27 @@
-<h2>本站使用者清單:</h2>
+<h3>本站使用者清單:</h3>
+<table class="table table-striped">
 <% @users.each do |user|%>
 
-<ul>
-	<li><%= user.email%></li>
-</ul>
+<tr>
+	<td>
+		<%= user.email%>
+		<%= link_to"刪除使用者", adminhank_user_path(user), :method => :delete%>
+	</td>
+</tr>
 <%end%>
+</table>
+<br>
+<h3>本站主題清單:</h3>
+<table class="table table-striped">
+ <% @disasters.each do |disaster|%>
+<tr>
+	<td>
+	<%=disaster.title%>
+	<%=link_to"刪除主題", adminhank_disaster_path(disaster), :method => :delete%>
+	</td>
+</tr>
+ <%end%>
+</table>
 
-
-
+<br>
 <%= link_to"返回論壇",disasters_path, :class=> "btn btn-danger"%>
