@@ -9,6 +9,12 @@ class User < ApplicationRecord
          :omniauthable, :omniauth_providers => [:facebook]
 
     has_many :disasters, dependent: :destroy
+    has_many :messages, dependent: :destroy
+
+
+  scope :normal, -> { where.not(:email => ADMIM_EMAIL_LIST) }
+
+  before_destroy :deletable?
   
     def admin?            #辨識使用者是否有admin權限
       self.email.in? ADMIM_EMAIL_LIST
@@ -47,6 +53,10 @@ class User < ApplicationRecord
      #user.fb_raw_data = auth
      user.save!
      return user
+   end
+
+   def deletable?
+    throw(:abort) if admin?
    end
 
 end

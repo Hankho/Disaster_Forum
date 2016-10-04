@@ -1,14 +1,17 @@
 <h1>災害資訊網</h1>
 
-<h4><%= link_to "About", about_disasters_path%></h4>
-<%= link_to"依名稱排序", disasters_path( :order => "title")%>
-<%= link_to"依預設排序", disasters_path%>
-<%= link_to"依留言數排序", disasters_path( :order => "messages_count")%>
+<h4><%= link_to "About", about_disasters_path, :class =>"btn btn-success"%></h4>
+<%= link_to"依名稱排序", disasters_path( :order => "title"),:class=> "btn btn-info"%>
+<%= link_to"依預設排序", disasters_path, :class=> "btn btn-info"%>
+<%= link_to"依留言數排序", disasters_path( :order => "messages_count"), :class=> "btn btn-info"%>
+
+<%= link_to"#{current_user.short_name} 的Profile",profile_user_path(@user), :class => "btn btn-success"%>
+
 <table class="table table-striped">
 <% @disasters.each do |disaster|%>
 	<tr>
 		<td>
-			<h4>創建者：<%= disaster.user.try(:short_name)%></h4>
+			<h4>創建者：<%= disaster.user.short_name%></h4> 
 		</td>
 		<td>
 			<%= disaster.title%>
@@ -16,12 +19,18 @@
 			<%= link_to"災害內容", disaster_path(disaster), :class => "btn btn-primary"%>
 			<%= link_to"編輯災情內容", edit_disaster_path(disaster),:class => "btn btn-primary"%>
 			<%= link_to"刪除", disaster_path(disaster), :method=>:delete,:class => "btn btn-danger"%>
-			<%= disaster.created_at%>
+			<td>
+				<h5>創建時間</h5>
+				<%= disaster.created_at%>
+			</td>
 			<td>
 				<% disaster.groups.each do |group|%>
+				<h5>災害類別</h5>
 	            <%= group.name%>
-				<h5>留言數:<%= disaster.messages.count%></h5>
 	            <%end%>
+			</td>
+			<td>
+				<h5>留言數:<%= disaster.messages.count%></h5>
 			</td>
 		</td>
 	</tr>

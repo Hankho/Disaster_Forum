@@ -6,16 +6,20 @@ Rails.application.routes.draw do
 		collection do 
 			get :about	
 		end
-		member do
-			get :user_profile
-			get :show_profile
-			post :edit_profile
-		end
+		
 
 	end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   	namespace :adminhank do
-  		resources :disasters
+  		resources :disasters, :messages, :users, :groups
   	end 
+
+  	resources :users do
+  	member do
+			get :profile
+			get :edit_profile
+			patch :update
+		end
+	end
 
 end
