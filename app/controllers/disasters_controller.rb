@@ -17,29 +17,32 @@ class DisastersController < ApplicationController
 	end
 	def show
 		@messages = @disaster.messages
-	    @disaster_message = Message.new  #new出來的物件用來給form_for塞進來的資料
+	  @disaster_message = Message.new  #new出來的物件用來給form_for塞進來的資料
 
 	end
 	def create
 		@disaster = Disaster.new(params_disaster)
 		@disaster.user = current_user 
-		if @disaster.save
-		flash[:notice]="新增成功！！"
-		redirect_to disasters_path
-		else
-		flash[:alert]="新增失敗！！"
-		render :action => :new
-		end
+			if @disaster.save
+			flash[:notice]="新增成功！！"
+			redirect_to disasters_path
+			else
+			flash[:alert]="新增失敗！！"
+			render :action => :new
+			end
 	end
 	def edit
 
 		
 	end
 	def update
-		
-		@disaster.update(params_disaster)
-		redirect_to disasters_path
-
+		if @disaster.user == current_user
+			@disaster.update(params_disaster)
+			redirect_to disasters_path
+		else
+			flash[:alert] = "sorry 你無權修改!"
+			render :edit
+		end
 	end
     def destroy
     	if @disaster.user == current_user
