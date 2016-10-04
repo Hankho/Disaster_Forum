@@ -36,6 +36,9 @@ class DisastersController < ApplicationController
 		
 	end
 	def update
+		if params[:_remove_tag] == "1"
+			@disaster.picture = nil
+		end
 		if @disaster.user == current_user
 			@disaster.update(params_disaster)
 			redirect_to disasters_path
@@ -58,7 +61,7 @@ class DisastersController < ApplicationController
     
     private #private 底下的方法只有自己的class(DisastersController)可以用
     def params_disaster
-    	params.require(:disaster).permit(:category,:title,:content,:group_ids=>[])
+    	params.require(:disaster).permit(:category, :picture, :title,:content,:group_ids=>[])
     end
     def set_disaster
     	@disaster = Disaster.find(params[:id])

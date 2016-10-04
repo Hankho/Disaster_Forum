@@ -7,12 +7,18 @@
 		<h4>內容：<%= simple_format(@disaster.content)%></h4>
 	</td>
 </table>
+<%if @disaster.picture.exists? %>
+<%=image_tag(@disaster.picture.url)%>
+<%else%>
+None
+<%end%>
 
 <h3>留言區</h3> 
 <table class="table table-striped">
 	<% @messages.each do |msg|%>
 		<tr>
 			<td>
+				
 				<%= msg.message%>
 				<%= link_to"刪除留言", disaster_message_path(@disaster,msg), :method => :delete%>
 				
@@ -30,3 +36,4 @@
 	<% end %>
 <br>
 <%= link_to "返回災害情報網", disasters_path, :class => "btn btn-danger"%>
+
