@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 		
 
 	end
+
+	root "disasters#index"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   	namespace :adminhank do
   		resources :disasters, :messages, :users, :groups
