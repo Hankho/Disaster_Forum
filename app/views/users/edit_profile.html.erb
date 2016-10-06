@@ -1,0 +1,9 @@
+<br>
+<img src="http://placehold.it/200x250" alt="photograph">
+<%= form_for @user do |f|%>
+<%=f.label :email%>
+<%=f.text_field :email%>
+<br>
+<%=f.submit"編輯完成",:class =>"btn btn-primary"%>
+
+<%end%>

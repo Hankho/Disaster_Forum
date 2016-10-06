@@ -1,0 +1,36 @@
+<br>
+<img src="http://placehold.it/200x250" alt="photograph">
+<h4>姓名:<%= current_user.short_name%></h4>
+<h4>E-mail:  <%=current_user.email%></h4>
+
+<h4>發布主題清單：</h4>
+<table class="table table-striped">
+	<% current_user.disasters.each do |dis|%>
+<tr>
+	<td>
+		<%= dis.title%>
+
+	</td>
+</tr>
+	<%end%>
+</table>
+<h4>發布留言清單：</h4>
+<table class="table table-striped">
+	<% current_user.messages.each do |msg|%>
+<tr>
+	<td>
+		<%= msg.message%> 
+	</td>
+	<td>
+		<h5>from <%= msg.disaster.title%></h5>
+	</td>
+</tr>
+	<%end%>
+</table>
+<br>
+		
+<%= link_to"編輯", edit_profile_user_path(current_user), :class =>"btn btn-primary"%>
+<%= link_to"返回論壇首頁", disasters_path, :class => "btn btn-danger"%>
+	
+ 	
+

@@ -19,6 +19,7 @@ class User < ApplicationRecord
     def admin?            #辨識使用者是否有admin權限
       self.email.in? ADMIM_EMAIL_LIST
     end
+    
 
     def short_name
     	self.email.split("@").first
